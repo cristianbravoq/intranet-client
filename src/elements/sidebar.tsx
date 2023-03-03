@@ -1,21 +1,41 @@
 import { LockClosedIcon, BookOpenIcon } from "@heroicons/react/20/solid";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
+// Variables de Redux
+import { useAppDispatch, useAppSelector  } from "../app/hooks";
+import { sidebarSlice } from "../features/sidebar/sidebarSlice";
+
+import {
+  commerce,
+  education,
+  giftcard,
+  rappi,
+  setting,
+} from "../assets/img/icons";
+
+// Arreglo de servicios de la empresa
 const Menus = [
-  { title: "Capacitaciones", src: "Search" },
-  { title: "Comercial", src: "Chart_fill" },
-  { title: "Rappi", src: 'Chat' },
-  { title: "Sistemas", src: 'Chat', gap: true },
-  { title: "Gif Cards", src: "User", gap: true },
+  { title: "Capacitaciones", src: education },
+  { title: "Comercial", src: commerce },
+  { title: "Rappi", src: rappi },
+  { title: "Gif Cards", src: giftcard },
+  { title: "Sistemas", src: setting, gap: true },
   /* { title: "Configuracion", src: Setting }, */
 ];
 
-
-
 function SideBar() {
+  
+  // Librerias de utilidades
+  const openSidebar = useAppSelector((state) => state.openSidebar.Sidebar.open) 
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
+
+  const stateOpenSidebar = () => {
+    setOpen(!open);
+    dispatch(sidebarSlice.actions.openSlice(open));
+  }
 
   function menusNavigate(title: string) {
     if (title === "Capacitaciones") navigate(`/`);
@@ -26,52 +46,50 @@ function SideBar() {
     <>
       <div
         className={` ${
-          open ? "sm:w-72 w-full" : "sm:w-20 w-10"
-        } bg-slate-900 h-full p-5 pt-8 fixed duration-500 flex flex-col justify-between`}
+          open ? "sm:w-72 w-full" : "sm:w-20 w-12"
+        } bg-slate-900 h-full p-5 pt-8 fixed duration-500 flex flex-col`}
       >
-        <button
-          className={`absolute cursor-pointer -right-3 top-9 w-7 rounded-full  ${
-            !open && "rotate-180"
-          }`}
-          onClick={() => setOpen(!open)}
+        <div
+          className={`absolute flex cursor-pointer -right-5 top-6 w-7 rounded-full p-5 bg-indigo-400 justify-center items-center`}
+          onClick={() => stateOpenSidebar()}
         >
-          <span className="absolute inset-y-0 left-0 flex items-center pl-3">
-            <LockClosedIcon
-              className="h-5 w-5  text-red-700 group-hover:text-indigo-400"
-              aria-hidden="true"
-            />
-          </span>
-        </button>
+          <LockClosedIcon
+            className="absolute h-5 w-5 text-zinc-300 rounded-full"
+            aria-hidden="true"
+          />
+        </div>
         <div className="flex gap-x-4 items-center justify-center hover:scale-90">
           <img
             className={`cursor-pointer duration-500 ${
               open && "rotate-[360deg]"
             }`}
           />
-          {/* <h1
-                className={`text-white origin-left font-medium text-xl duration-200 ${
-                  !open && "scale-0"
-                }`}
-              >
-                P<small>ay</small>4F<small>ood</small>
-              </h1> */}
+          <h1
+            className={`text-white origin-left font-medium text-xl duration-200 ${
+              !open && "scale-0"
+            }`}
+          >
+            Creaciones Nadar
+          </h1>
         </div>
         <ul className="py-6">
           {Menus.map((Menu, index) => (
             <li
               key={index}
-              className={`flex rounded-md p-2 cursor-pointer hover:bg-light-white hover:scale-110  hover:bg-slate-500 text-gray-300 hover:text-gray-800 text-sm items-center gap-x-4 
+              className={`flex rounded-md p-1 cursor-pointer hover:bg-light-white hover:scale-110  hover:bg-slate-500 text-gray-300 hover:text-gray-800 text-sm items-center gap-x-4 
                   ${Menu.gap ? "mt-40" : "mt-2"} ${
                 index === 0 && "bg-light-white"
               } `}
             >
               <div
-                className="w-full flex items-center gap-4"
+                className="w-full flex items-center bg-white p-1 rounded-sm"
                 onClick={() => menusNavigate(Menu.title)}
               >
-                <img src={Menu.src} />
+                <img className="w-8" src={Menu.src} />
                 <span
-                  className={`${!open && "hidden"} origin-left duration-200`}
+                  className={`${
+                    !open && "hidden"
+                  } ml-2 origin-left duration-200 text-black font-semibold`}
                 >
                   {Menu.title}
                 </span>
