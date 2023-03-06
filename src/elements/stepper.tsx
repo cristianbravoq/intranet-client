@@ -1,11 +1,31 @@
-import { useState } from 'react';
+import { useEffect, useState } from "react";
 import { TiTick } from "react-icons/ti";
-import './style.css'
+import { FormGiftCard, ValueGiftCard, TokenGiftCard } from "./giftCard";
+import "./style.css";
 
 const Stepper = () => {
-  const steps = ["Customer Info", "Shipping Info", "Payment"];
+
+  const [content, setContent] = useState(() => <></>);
+  
+  const steps = [
+    { title: "Customer Info", component: FormGiftCard },
+    { title: "Shipping Info", component: ValueGiftCard },
+    { title: "Payment", component: TokenGiftCard },
+  ];
   const [currentStep, setCurrentStep] = useState(1);
   const [complete, setComplete] = useState(false);
+
+  useEffect(() => {
+    steps.length >= currentStep
+      ? setContent(steps[currentStep - 1].component)
+      : sendGiftCard();
+    console.log(currentStep);
+  }, [currentStep]);
+
+  const sendGiftCard = () => {
+    alert("Mensaje");
+  };
+
   return (
     <>
       <div className="flex justify-between">
@@ -19,20 +39,23 @@ const Stepper = () => {
             <div className="step">
               {i + 1 < currentStep || complete ? <TiTick size={24} /> : i + 1}
             </div>
-            <p className="text-gray-500">{step}</p>
+            <p className="text-gray-500">{step.title}</p>
           </div>
         ))}
       </div>
+
+      <div className=" w-full text-center p-5">{content}</div>
+
       {!complete && (
         <button
-          className="btn"
+          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
           onClick={() => {
-            currentStep === steps.length
+            currentStep - 1 === steps.length
               ? setComplete(true)
               : setCurrentStep((prev) => prev + 1);
           }}
         >
-          {currentStep === steps.length ? "Finish" : "Next"}
+          {currentStep - 1 === steps.length ? "Finish" : "Next"}
         </button>
       )}
     </>

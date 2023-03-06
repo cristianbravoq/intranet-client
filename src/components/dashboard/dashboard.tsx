@@ -7,10 +7,6 @@ function Dashboard() {
   const stateOpenSidebar: boolean = useAppSelector(
     (state) => state.openSidebar.Sidebar.open
   );
-  useEffect(() => {
-    console.log(stateOpenSidebar);
-  });
-
   return (
     <div className="w-full h-screen flex">
       <SideBar />
