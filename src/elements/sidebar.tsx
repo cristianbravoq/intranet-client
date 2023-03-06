@@ -49,11 +49,11 @@ function SideBar() {
         } bg-slate-900 h-full p-5 pt-8 fixed duration-500 flex flex-col`}
       >
         <div
-          className={`absolute flex cursor-pointer -right-5 top-6 w-7 rounded-full p-5 bg-indigo-400 justify-center items-center`}
+          className={`absolute flex cursor-pointer -right-5 top-6 w-7 rounded-full p-5 bg-indigo-400 justify-center items-center hover:scale-105`}
           onClick={() => stateOpenSidebar()}
         >
           <ArrowLongRightIcon
-            className={`absolute h-5 w-5 text-zinc-300 rounded-full rotate-180 ease-out duration-500 ${
+            className={`absolute h-5 w-5 text-zinc-300 rounded-full rotate-180 ease-out duration-1000 hover:scale-150 ${
               !open && "rotate-0"
             }`}
             aria-hidden="true"
