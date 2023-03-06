@@ -6,11 +6,11 @@ import "./style.css";
 const Stepper = () => {
 
   const [content, setContent] = useState(() => <></>);
-  
+
   const steps = [
-    { title: "Customer Info", component: FormGiftCard },
-    { title: "Shipping Info", component: ValueGiftCard },
-    { title: "Payment", component: TokenGiftCard },
+    { title: "Información", component: FormGiftCard },
+    { title: "Precio", component: ValueGiftCard },
+    { title: "Token", component: TokenGiftCard },
   ];
   const [currentStep, setCurrentStep] = useState(1);
   const [complete, setComplete] = useState(false);
@@ -27,7 +27,7 @@ const Stepper = () => {
   };
 
   return (
-    <>
+    <div className="bg-slate-300 p-5 rounded-lg text-center">
       <div className="flex justify-between">
         {steps?.map((step, i) => (
           <div
@@ -39,7 +39,7 @@ const Stepper = () => {
             <div className="step">
               {i + 1 < currentStep || complete ? <TiTick size={24} /> : i + 1}
             </div>
-            <p className="text-gray-500">{step.title}</p>
+            <p className="text-slate-800">{step.title}</p>
           </div>
         ))}
       </div>
@@ -55,10 +55,10 @@ const Stepper = () => {
               : setCurrentStep((prev) => prev + 1);
           }}
         >
-          {currentStep - 1 === steps.length ? "Finish" : "Next"}
+          {currentStep - 1 === steps.length ? "Finalizar" : "Siguiente"}
         </button>
       )}
-    </>
+    </div>
   );
 };
 

@@ -3,8 +3,12 @@ import { AuthForm } from "./authForm";
 import { Copyright } from "../../elements/copyright";
 
 import logo from "../../assets/img/LogoNadar.png";
+import { useAppDispatch } from "../../app/hooks";
+import { sidebarSlice } from "../../features/sidebar/sidebarSlice";
 
 function Auth() {
+  const dispatch = useAppDispatch();
+  dispatch(sidebarSlice.actions.openSlice(true));
   return (
     <div className="w-full h-screen contenedor-auth">
       <div className="flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">

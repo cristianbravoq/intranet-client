@@ -1,9 +1,9 @@
-import { LockClosedIcon, BookOpenIcon } from "@heroicons/react/20/solid";
+import { LockClosedIcon, ArrowLongRightIcon } from "@heroicons/react/20/solid";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 // Variables de Redux
-import { useAppDispatch, useAppSelector  } from "../app/hooks";
+import { useAppDispatch, useAppSelector } from "../app/hooks";
 import { sidebarSlice } from "../features/sidebar/sidebarSlice";
 
 import {
@@ -25,9 +25,8 @@ const Menus = [
 ];
 
 function SideBar() {
-  
   // Librerias de utilidades
-  const openSidebar = useAppSelector((state) => state.openSidebar.Sidebar.open) 
+  const openSidebar = useAppSelector((state) => state.openSidebar.Sidebar.open);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
@@ -35,7 +34,7 @@ function SideBar() {
   const stateOpenSidebar = () => {
     setOpen(!open);
     dispatch(sidebarSlice.actions.openSlice(open));
-  }
+  };
 
   function menusNavigate(title: string) {
     if (title === "Capacitaciones") navigate(`/`);
@@ -53,8 +52,10 @@ function SideBar() {
           className={`absolute flex cursor-pointer -right-5 top-6 w-7 rounded-full p-5 bg-indigo-400 justify-center items-center`}
           onClick={() => stateOpenSidebar()}
         >
-          <LockClosedIcon
-            className="absolute h-5 w-5 text-zinc-300 rounded-full"
+          <ArrowLongRightIcon
+            className={`absolute h-5 w-5 text-zinc-300 rounded-full rotate-180 ease-out duration-500 ${
+              !open && "rotate-0"
+            }`}
             aria-hidden="true"
           />
         </div>

@@ -1,7 +1,13 @@
-import { useEffect } from "react";
 import { useAppSelector } from "../../app/hooks";
 import SideBar from "../../elements/sidebar";
-import Stepper from "../../elements/stepper";
+import GiftCard from "./giftCard";
+
+const Menus = [
+  { title: "Capacitaciones", component: GiftCard },
+  { title: "Comercial", component: GiftCard },
+  { title: "Rappi", component: GiftCard },
+  { title: "Gif Cards", component: GiftCard },
+];
 
 function Dashboard() {
   const stateOpenSidebar: boolean = useAppSelector(
@@ -15,8 +21,9 @@ function Dashboard() {
           stateOpenSidebar ? "sm:ml-20 w-full" : "w-full ml-72"
         } h-full pt-8 duration-500 flex flex-col items-center`}
       >
-        <div className="">
-          <Stepper />
+        <div className=" w-2/3">
+          <h2 className="text-center text-2xl">Gift Cards</h2>
+          <GiftCard />
         </div>
       </div>
     </div>
