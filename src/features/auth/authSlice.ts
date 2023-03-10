@@ -3,23 +3,23 @@ import { auth } from "../../models/auth";
 
 interface authState {
   User: auth;
+  Login: boolean
 }
 
 const initialState: authState = {
   User: {
-    documento: "",
-    cdo: 0,
-    clave: "",
-    idRol: 0,
+    Documento: "",
+    Cdo: "",
   },
+  Login: false
 };
 
 export const authSlice = createSlice({
   name: "auth",
   initialState,
   reducers: {
-    loginSlice: (state, action: PayloadAction<any>) => {
-      state.User = action.payload;
+    loginSlice: (state, action: PayloadAction<boolean>) => {
+      state.Login = action.payload;
     },
   },
 });

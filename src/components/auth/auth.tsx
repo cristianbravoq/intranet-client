@@ -3,8 +3,9 @@ import { AuthForm } from "./authForm";
 import { Copyright } from "../../elements/copyright";
 
 import logo from "../../assets/img/LogoNadar.png";
-import { useAppDispatch } from "../../app/hooks";
+import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { sidebarSlice } from "../../features/sidebar/sidebarSlice";
+import { useNavigate } from "react-router-dom";
 
 function Auth() {
   const dispatch = useAppDispatch();

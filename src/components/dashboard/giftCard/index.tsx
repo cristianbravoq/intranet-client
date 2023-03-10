@@ -26,6 +26,7 @@ export default function GiftCard() {
 
   return (
     <div className="w-full px-2 py-16 sm:px-0">
+      <h2 className='text-center text-2xl mb-7'>Gift Card</h2>
       <Tab.Group>
         <Tab.List className="flex space-x-1 rounded-xl bg-blue-900/20 p-1">
           {Object.keys(categories).map((category) => (

@@ -1,14 +1,4 @@
-import { useEffect } from "react";
 import { useForm } from "react-hook-form";
-
-const people = [
-  { name: "Wade Cooper" },
-  { name: "Arlene Mccoy" },
-  { name: "Devon Webb" },
-  { name: "Tom Cook" },
-  { name: "Tanya Fox" },
-  { name: "Hellen Schmidt" },
-];
 
 export function FormGiftCard() {
   return (

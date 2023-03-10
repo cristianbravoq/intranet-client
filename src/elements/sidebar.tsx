@@ -1,9 +1,9 @@
-import { LockClosedIcon, ArrowLongRightIcon } from "@heroicons/react/20/solid";
-import { useEffect, useState } from "react";
+import { ArrowLongRightIcon } from "@heroicons/react/20/solid";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 // Variables de Redux
-import { useAppDispatch, useAppSelector } from "../app/hooks";
+import { useAppDispatch } from "../app/hooks";
 import { sidebarSlice } from "../features/sidebar/sidebarSlice";
 
 import {
@@ -12,7 +12,9 @@ import {
   giftcard,
   rappi,
   setting,
-} from "../assets/img/icons";
+  logout,
+} from "../assets/img/icons/index";
+import logo from "../assets/img/LogoNadar.png";
 
 // Arreglo de servicios de la empresa
 const Menus = [
@@ -21,12 +23,12 @@ const Menus = [
   { title: "Rappi", src: rappi },
   { title: "Gif Cards", src: giftcard },
   { title: "Sistemas", src: setting, gap: true },
-  /* { title: "Configuracion", src: Setting }, */
+  { title: "Salir", src: logout },
 ];
 
 function SideBar() {
   // Librerias de utilidades
-  const openSidebar = useAppSelector((state) => state.openSidebar.Sidebar.open);
+  //const openSidebar = useAppSelector((state) => state.openSidebar.Sidebar.open);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
@@ -37,8 +39,15 @@ function SideBar() {
   };
 
   function menusNavigate(title: string) {
-    if (title === "Capacitaciones") navigate(`/`);
-    if (title === "Salir") navigate(`/SignIn`);
+    if (title === "Capacitaciones") navigate(`/home/capacitaciones`);
+    if (title === "Comercial") navigate(`/home/comercial`);
+    if (title === "Rappi") navigate(`/home/rappi`);
+    if (title === "Gif Cards") navigate(`/home/giftcard`);
+    if (title === "Sistemas") navigate(`/home/sistemas`);
+    if (title === "Salir") {
+      sessionStorage.clear();
+      navigate(`/`);
+    }
   }
 
   return (
@@ -49,12 +58,12 @@ function SideBar() {
         } bg-slate-900 h-full p-5 pt-8 fixed duration-500 flex flex-col`}
       >
         <div
-          className={`absolute flex cursor-pointer -right-5 top-6 w-7 rounded-full p-5 bg-indigo-400 justify-center items-center hover:scale-105`}
+          className={`absolute flex cursor-pointer -right-5 top-6 w-7 rounded-full p-5 bg-indigo-300 justify-center items-center hover:scale-105`}
           onClick={() => stateOpenSidebar()}
         >
           <ArrowLongRightIcon
-            className={`absolute h-5 w-5 text-zinc-300 rounded-full rotate-180 ease-out duration-1000 hover:scale-150 ${
-              !open && "rotate-0"
+            className={`absolute h-5 w-5 text-zinc-800 rounded-full ease-out duration-1000 hover:scale-150 ${
+              open && "rotate-180"
             }`}
             aria-hidden="true"
           />
@@ -70,6 +79,11 @@ function SideBar() {
               !open && "scale-0"
             }`}
           >
+            <img
+              className="mx-auto h-20 w-auto"
+              alt="Your Company"
+              src={logo}
+            />
             Creaciones Nadar
           </h1>
         </div>
@@ -78,7 +92,7 @@ function SideBar() {
             <li
               key={index}
               className={`flex rounded-md p-1 cursor-pointer hover:bg-light-white hover:scale-110  hover:bg-slate-500 text-gray-300 hover:text-gray-800 text-sm items-center gap-x-4 
-                  ${Menu.gap ? "mt-40" : "mt-2"} ${
+                  ${Menu.gap ? "mt-32" : "mt-2"} ${
                 index === 0 && "bg-light-white"
               } `}
             >

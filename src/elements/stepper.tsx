@@ -19,7 +19,6 @@ const Stepper = () => {
     steps.length >= currentStep
       ? setContent(steps[currentStep - 1].component)
       : sendGiftCard();
-    console.log(currentStep);
   }, [currentStep]);
 
   const sendGiftCard = () => {

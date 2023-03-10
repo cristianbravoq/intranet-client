@@ -1,38 +1,71 @@
 import { LockClosedIcon } from "@heroicons/react/20/solid";
 import { useForm } from "react-hook-form";
+import { loginServices } from "../../services/auth";
+import { auth, authLogin, ISession } from "../../models/auth";
+import { useAppDispatch } from "../../app/hooks";
+import { authSlice } from "../../features/auth/authSlice";
+import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
+import { useState } from "react";
 
 export function AuthForm() {
-  const { register, handleSubmit } = useForm();
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+  const { register, handleSubmit } = useForm<auth>();
+  const [authLogin, setAuthLogin] = useState<authLogin>({
+    name: "",
+    documento: "",
+    token: "",
+    cdo: "",
+    rol: "",
+  });
 
-  const onSubmit = () => {};
+  function redirectDashboard() {
+    dispatch(authSlice.actions.loginSlice(true));
+    navigate(`/home`);
+  }
+
+  const onSubmit = async (res: auth) => {
+    try {
+      const login = await loginServices(res);
+      setAuthLogin(login);
+      sessionStorage.setItem(
+        "auth",
+        JSON.stringify({ user: authLogin.token, login: true })
+      );
+      login.cdo === res.Cdo ? redirectDashboard() : Swal.fire("Cdo incorrecto");
+    } catch (error) {
+      Swal.fire("Verifique las credenciales de ingreso");
+    }
+  };
 
   return (
     <form className="mt-8 space-y-6" onSubmit={handleSubmit(onSubmit)}>
       <div className="-space-y-px rounded-md shadow-sm">
         <div>
-          <label htmlFor="user" className="sr-only">
+          <label htmlFor="Documento" className="sr-only">
             Documento
           </label>
           <input
-            id="user"
-            {...register("user")}
-            name="user"
+            id="Documento"
+            {...register("Documento")}
+            name="Documento"
             type="text"
             pattern="[0-9]+"
-            autoComplete="user"
+            autoComplete="Documento"
             required
             className="relative block w-full appearance-none rounded-none rounded-t-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
             placeholder="Documento de Identidad"
           />
         </div>
         <div>
-          <label htmlFor="password" className="sr-only">
+          <label htmlFor="Cdo" className="sr-only">
             Centro de Operaciones
           </label>
           <input
-            id="cdo"
-            {...register("cdo")}
-            name="cdo"
+            id="Cdo"
+            {...register("Cdo")}
+            name="Cdo"
             type="text"
             pattern="[0-9]+"
             autoComplete="current-password"
@@ -60,9 +93,7 @@ export function AuthForm() {
         </div>
 
         <div className="text-sm">
-          <button
-            className="font-medium text-indigo-600 hover:text-indigo-500"
-          >
+          <button className="font-medium text-indigo-600 hover:text-indigo-500">
             Forgot your password?
           </button>
         </div>
