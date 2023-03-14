@@ -9,7 +9,7 @@ import { useNavigate } from "react-router-dom";
 
 function Auth() {
   const dispatch = useAppDispatch();
-  dispatch(sidebarSlice.actions.openSlice(true));
+  dispatch(sidebarSlice.actions.openSlice(false));
   return (
     <div className="w-full h-screen contenedor-auth">
       <div className="flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">

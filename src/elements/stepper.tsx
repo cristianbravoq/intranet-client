@@ -26,7 +26,7 @@ const Stepper = () => {
   };
 
   return (
-    <div className="bg-slate-300 p-5 rounded-lg text-center">
+    <div className="bg-slate-300 p-5 rounded-lg text-center w-full h-full">
       <div className="flex justify-between">
         {steps?.map((step, i) => (
           <div

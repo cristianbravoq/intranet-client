@@ -31,7 +31,7 @@ function SideBar() {
   //const openSidebar = useAppSelector((state) => state.openSidebar.Sidebar.open);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(true);
 
   const stateOpenSidebar = () => {
     setOpen(!open);
@@ -55,14 +55,14 @@ function SideBar() {
       <div
         className={` ${
           open ? "sm:w-72 w-full" : "sm:w-20 w-12"
-        } bg-slate-900 h-full p-5 pt-8 fixed duration-500 flex flex-col`}
+        } bg-gray-800 h-full p-5 pt-8 fixed duration-500 flex flex-col`}
       >
         <div
-          className={`absolute flex cursor-pointer -right-5 top-6 w-7 rounded-full p-5 bg-indigo-300 justify-center items-center hover:scale-105`}
+          className={`absolute flex cursor-pointer -right-5 top-6 w-7 rounded-full p-5 bg-green-600 justify-center items-center hover:scale-105`}
           onClick={() => stateOpenSidebar()}
         >
           <ArrowLongRightIcon
-            className={`absolute h-5 w-5 text-zinc-800 rounded-full ease-out duration-1000 hover:scale-150 ${
+            className={`absolute h-5 w-5 text-stone-100 rounded-full ease-out duration-700 hover:scale-150 ${
               open && "rotate-180"
             }`}
             aria-hidden="true"
@@ -91,20 +91,20 @@ function SideBar() {
           {Menus.map((Menu, index) => (
             <li
               key={index}
-              className={`flex rounded-md p-1 cursor-pointer hover:bg-light-white hover:scale-110  hover:bg-slate-500 text-gray-300 hover:text-gray-800 text-sm items-center gap-x-4 
+              className={`flex rounded-md p-1 cursor-pointer hover:scale-110 text-gray-300 hover:text-gray-800 text-sm items-center gap-x-4 
                   ${Menu.gap ? "mt-32" : "mt-2"} ${
                 index === 0 && "bg-light-white"
               } `}
             >
               <div
-                className="w-full flex items-center bg-white p-1 rounded-sm"
+                className="w-full flex items-center p-1 rounded-sm"
                 onClick={() => menusNavigate(Menu.title)}
               >
                 <img className="w-8" src={Menu.src} />
                 <span
                   className={`${
                     !open && "hidden"
-                  } ml-2 origin-left duration-200 text-black font-semibold`}
+                  } ml-2 origin-left text-white transition duration-300 hover:border-b-2 font-semibold`}
                 >
                   {Menu.title}
                 </span>

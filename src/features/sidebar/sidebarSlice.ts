@@ -8,7 +8,7 @@ interface authState {
 
 const initialState: authState = {
   Sidebar: {
-    open: true
+    open: false
   },
 };
 

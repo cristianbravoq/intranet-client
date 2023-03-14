@@ -1,4 +1,6 @@
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
+import { ServicesGiftCard } from "../services/giftCard";
 
 export function FormGiftCard() {
   return (
@@ -85,14 +87,21 @@ export function TokenGiftCard() {
 }
 
 export function TableGiftCard() {
-  const { register, handleSubmit } = useForm();
+  interface dataGiftCard {
+    valorIngreso: string;
+    valorEgreso: string;
+    idGiftCard: string;
+  }
 
-  const onSubmit = (res: any) => {
-    console.log(res)
+  const { register, handleSubmit } = useForm();
+  const [_data, setData] = useState<Array<dataGiftCard>>();
+
+  const onSubmit = async (res: any) => {
+    ServicesGiftCard(JSON.stringify(res)).then((res) => setData(res));
   };
 
   return (
-    <div className='bg-slate-300 p-5 rounded-lg text-center'>
+    <div className="bg-slate-300 p-5 rounded-lg text-center">
       <form className="w-full mb-4 flex" onSubmit={handleSubmit(onSubmit)}>
         <input
           className="w-full placeholder:text-slate-500 bg-slate-300 rounded-l-lg p-2 text-slate-900 border-2 border-y-slate-400 border-l-slate-400"
@@ -102,29 +111,29 @@ export function TableGiftCard() {
           {...register("token")}
           name="token"
         />
-        <button type="submit"className="bg-slate-300 rounded-r-lg p-2 text-slate-900 border-2 border-y-slate-800 border-r-slate-800 border-l-slate-900 hover:bg-slate-100">
+        <button
+          type="submit"
+          className="bg-slate-300 rounded-r-lg p-2 text-slate-900 border-2 border-y-slate-800 border-r-slate-800 border-l-slate-900 hover:bg-slate-100"
+        >
           Buscar
         </button>
       </form>
       <table className="w-full">
         <thead className="text-center border-b border-slate-500">
           <tr>
-            <th className="w-1/3">Valor actual</th>
-            <th className="w-1/4">Valor inicial</th>
-            <th className="w-1/3">Fecha de consumo</th>
+            <th className="w-1/3">Valor Egreso</th>
+            <th className="w-1/4">Valor Ingreso</th>
+            <th className="w-1/3">Token</th>
           </tr>
         </thead>
-        <tbody className="">
-          <tr className="divide-x divide-slate-500 text-center">
-            <td>Token</td>
-            <td className="">Adam</td>
-            <td>858</td>
-          </tr>
-          <tr className="divide-x divide-slate-500 text-center">
-            <td>A Long and Winding</td>
-            <td>Adam</td>
-            <td>112</td>
-          </tr>
+        <tbody>
+          {_data?.map((res: dataGiftCard, i: any) => (
+            <tr key={i} className="divide-x divide-slate-500 text-center">
+              <td>{res.valorEgreso}</td>
+              <td>{res.valorIngreso}</td>
+              <td>{res.idGiftCard.toUpperCase()}</td>
+            </tr>
+          ))}
         </tbody>
       </table>
     </div>
