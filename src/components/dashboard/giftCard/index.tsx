@@ -9,7 +9,7 @@ function classNames(...classes: string[]) {
 
 export default function GiftCard() {
 
-  let [categories] = useState({
+  var categories = {
     Crear: [
       {
         id: 1,
@@ -22,7 +22,7 @@ export default function GiftCard() {
         component: ConsultarGiftCard 
       }
     ]
-  })
+  }
 
   return (
     <div className="w-full px-2 py-16 sm:px-0">

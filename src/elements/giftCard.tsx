@@ -5,8 +5,10 @@ import { GetGiftCard } from "../services/giftCard";
 export function FormGiftCard() {
 
   //const { register, handleSubmit } = useForm();
-  const onSubmit = async (res: any) => {
-    console.log(res)
+  const Submit = () => {
+    console.log("res")
+    var x1 = document.getElementsByName("nombre")
+    console.log(x1)
   };
 
   return (
@@ -18,7 +20,7 @@ export function FormGiftCard() {
           </label>
           <input
             //{...register("nombre")}
-            onChange={()=> {}}
+            onChange={Submit}
             id="nombre"
             name="nombre"
             type="text"
