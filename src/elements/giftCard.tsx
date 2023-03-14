@@ -1,53 +1,63 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { ServicesGiftCard } from "../services/giftCard";
+import { GetGiftCard } from "../services/giftCard";
 
 export function FormGiftCard() {
+
+  //const { register, handleSubmit } = useForm();
+  const onSubmit = async (res: any) => {
+    console.log(res)
+  };
+
   return (
     <form className="mt-8 space-y-6">
       <div className="-space-y-px rounded-md shadow-sm">
         <div>
-          <label htmlFor="user" className="sr-only">
+          <label htmlFor="nombre" className="sr-only">
             Nombre
           </label>
           <input
-            id="user"
-            name="user"
+            //{...register("nombre")}
+            onChange={()=> {}}
+            id="nombre"
+            name="nombre"
             type="text"
-            autoComplete="user"
+            autoComplete="nombre"
             required
             className="relative block w-full appearance-none rounded-none rounded-t-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
             placeholder="Nombre"
           />
         </div>
         <div>
-          <label htmlFor="password" className="sr-only">
+          <label htmlFor="telefono" className="sr-only">
             Telefono
           </label>
           <input
-            id="cdo"
-            name="cdo"
+            //{...register("telefono")}
+            id="telefono"
+            name="telefono"
             type="text"
             pattern="[0-9]+"
-            autoComplete="current-password"
+            autoComplete="telefono"
             required
             className="relative block w-full appearance-none rounded-none border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
             placeholder="Telefono"
           />
         </div>
         <div>
-          <label htmlFor="password" className="sr-only">
-            Email
+          <label htmlFor="correo" className="sr-only">
+            Correo
           </label>
           <input
-            id="cdo"
-            name="cdo"
+            //{...register("correo")}
+            id="correo"
+            name="correo"
             type="text"
             pattern="[0-9]+"
             autoComplete="current-password"
             required
             className="relative block w-full appearance-none rounded-none rounded-b-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
-            placeholder="Email"
+            placeholder="Correo"
           />
         </div>
       </div>
@@ -97,7 +107,7 @@ export function TableGiftCard() {
   const [_data, setData] = useState<Array<dataGiftCard>>();
 
   const onSubmit = async (res: any) => {
-    ServicesGiftCard(JSON.stringify(res)).then((res) => setData(res));
+    GetGiftCard(JSON.stringify(res)).then((res) => setData(res));
   };
 
   return (

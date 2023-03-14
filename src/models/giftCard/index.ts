@@ -1,9 +1,9 @@
 
 export interface ISendGiftCard {
-    name: string;
+    nombre: string;
     telefono: string;
-    email: string;
-    precio: string;
-    token: string;
+    correo: string;
+    monto: string;
+    referencia: string;
   }
   

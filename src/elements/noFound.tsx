@@ -12,9 +12,9 @@ function NoFound() {
               </div>
 
               <div className="contant_box_404">
-                <h3 className="h2">Look like you're lost</h3>
+                <h3 className="h2">Parece que estás perdido</h3>
 
-                <p>the page you are looking for not avaible!</p>
+                <p>¡La página que estás buscando no está disponible!</p>
 
                 <button className="link_404">
                   Go to Home

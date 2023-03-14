@@ -1,11 +1,12 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { TiTick } from "react-icons/ti";
+import Swal from "sweetalert2";
 import { FormGiftCard, ValueGiftCard, TokenGiftCard } from "./giftCard";
 import "./style.css";
 
 const Stepper = () => {
 
-  const [content, setContent] = useState(() => <></>);
+  const [content, setContent] = useState(FormGiftCard);
 
   const steps = [
     { title: "Información", component: FormGiftCard },
@@ -15,14 +16,12 @@ const Stepper = () => {
   const [currentStep, setCurrentStep] = useState(1);
   const [complete, setComplete] = useState(false);
 
-  useEffect(() => {
-    steps.length >= currentStep
-      ? setContent(steps[currentStep - 1].component)
-      : sendGiftCard();
-  }, [currentStep]);
+  const cambioComponent = () => {
+      setContent(steps[currentStep].component)
+  }
 
   const sendGiftCard = () => {
-    alert("Mensaje");
+    Swal.fire("Tarjeta de regalo creada exitosamente");
   };
 
   return (
@@ -49,6 +48,8 @@ const Stepper = () => {
         <button
           className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
           onClick={() => {
+            if(currentStep <= 2) cambioComponent();
+            if(currentStep === 4) sendGiftCard();
             currentStep - 1 === steps.length
               ? setComplete(true)
               : setCurrentStep((prev) => prev + 1);
