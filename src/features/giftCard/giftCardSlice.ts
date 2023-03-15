@@ -23,11 +23,11 @@ export const giftCardSlice = createSlice({
   name: "sidebar",
   initialState,
   reducers: {
-    openSlice: (state, action: PayloadAction<ISendGiftCard>) => {
+    insertDataSlice: (state, action: PayloadAction<ISendGiftCard>) => {
       state.Sidebar.giftCard = action.payload;
     },
   },
 });
 
-export const { openSlice } = giftCardSlice.actions;
+export const { insertDataSlice } = giftCardSlice.actions;
 export default giftCardSlice.reducer;

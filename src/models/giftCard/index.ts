@@ -1,4 +1,3 @@
-
 export interface ISendGiftCard {
     nombre: string;
     telefono: string;

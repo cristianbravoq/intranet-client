@@ -14,4 +14,5 @@ export interface authLogin {
 export interface ISession {
   login: boolean;
   user: string;
+  cdo: string
 }

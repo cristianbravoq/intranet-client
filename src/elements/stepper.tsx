@@ -1,11 +1,14 @@
 import { useState } from "react";
 import { TiTick } from "react-icons/ti";
 import Swal from "sweetalert2";
+import { ISendEmail } from "../models/email";
+import { ISendGiftCard } from "../models/giftCard";
+import { sendEmail } from "../services/email";
+import { InsertGiftCard } from "../services/giftCard";
 import { FormGiftCard, ValueGiftCard, TokenGiftCard } from "./giftCard";
 import "./style.css";
 
 const Stepper = () => {
-
   const [content, setContent] = useState(FormGiftCard);
 
   const steps = [
@@ -17,11 +20,34 @@ const Stepper = () => {
   const [complete, setComplete] = useState(false);
 
   const cambioComponent = () => {
-      setContent(steps[currentStep].component)
-  }
+    setContent(steps[currentStep].component);
+  };
 
-  const sendGiftCard = () => {
-    Swal.fire("Tarjeta de regalo creada exitosamente");
+  const Email = async (data: ISendGiftCard) => {
+    try {
+      const params: ISendEmail = {
+        To: "",
+        Subject: "",
+        Body: "",
+      };
+      const body = "Tarjeta de regalo por valor de XXXXX y referencia XXXX";
+      params.To = data.correo;
+      params.Body = body;
+      params.Subject = "Asunto de correo";
+      sendEmail(JSON.stringify(params));
+      Swal.fire("Tarjeta de regalo creada y enviada exitosamente");
+    } catch (error) {
+      throw error;
+    }
+  };
+
+  const sendGiftCard = async () => {
+    const data: ISendGiftCard = JSON.parse(
+      sessionStorage.getItem("DatosPersonales") || "{}"
+    );
+
+    const insert: boolean = await InsertGiftCard(JSON.stringify(data));
+    insert ? Email(data) : Swal.fire("Tarjeta de regalo falló");
   };
 
   return (
@@ -48,8 +74,8 @@ const Stepper = () => {
         <button
           className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
           onClick={() => {
-            if(currentStep <= 2) cambioComponent();
-            if(currentStep === 4) sendGiftCard();
+            if (currentStep <= 2) cambioComponent();
+            if (currentStep === 4) sendGiftCard();
             currentStep - 1 === steps.length
               ? setComplete(true)
               : setCurrentStep((prev) => prev + 1);

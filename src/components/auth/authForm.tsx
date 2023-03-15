@@ -1,7 +1,7 @@
 import { LockClosedIcon } from "@heroicons/react/20/solid";
 import { useForm } from "react-hook-form";
 import { loginServices } from "../../services/auth";
-import { auth, authLogin, ISession } from "../../models/auth";
+import { auth, authLogin } from "../../models/auth";
 import { useAppDispatch } from "../../app/hooks";
 import { authSlice } from "../../features/auth/authSlice";
 import { useNavigate } from "react-router-dom";
@@ -27,13 +27,13 @@ export function AuthForm() {
 
   const onSubmit = async (res: auth) => {
     try {
-      const login = await loginServices(res);
-      setAuthLogin(login);
+      const _login = await loginServices(res);
+      setAuthLogin(_login);
       sessionStorage.setItem(
         "auth",
-        JSON.stringify({ user: authLogin.token, login: true })
+        JSON.stringify({ user: _login.token, login: true, cdo: _login.cdo })
       );
-      login.cdo === res.Cdo ? redirectDashboard() : Swal.fire("Cdo incorrecto");
+      _login.cdo === res.Cdo ? redirectDashboard() : Swal.fire("Cdo incorrecto");
     } catch (error) {
       Swal.fire("Verifique las credenciales de ingreso");
     }

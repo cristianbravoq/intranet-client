@@ -22,7 +22,7 @@ export const InsertGiftCard = async (idDoc: string) => {
         const result = await request({
           method: "post",
           maxBodyLength: Infinity,
-          url: "http://localhost:5209/api/MvtoAnticipado/GiftCards",
+          url: "http://localhost:5209/api/MvtoAnticipado/InsertGiftCards",
           headers: {
             "Content-Type": "application/json",
           },
@@ -33,3 +33,4 @@ export const InsertGiftCard = async (idDoc: string) => {
         throw e;
       }
 }
+

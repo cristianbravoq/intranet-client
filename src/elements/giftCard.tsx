@@ -1,14 +1,27 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
+import Swal from "sweetalert2";
+import { ISendGiftCard } from "../models/giftCard";
 import { GetGiftCard } from "../services/giftCard";
+import GenerarToken from "../services/tokenGiftCard";
+
+const dataInsert = {
+  nombre: "",
+  telefono: "",
+  correo: "",
+  monto: "",
+  referencia: "",
+};
 
 export function FormGiftCard() {
-
-  //const { register, handleSubmit } = useForm();
   const Submit = () => {
-    console.log("res")
-    var x1 = document.getElementsByName("nombre")
-    console.log(x1)
+    const all = document.querySelectorAll("input");
+
+    dataInsert.nombre = all[0].value;
+    dataInsert.telefono = all[1].value;
+    dataInsert.correo = all[2].value;
+
+    sessionStorage.setItem("DatosPersonales", JSON.stringify(dataInsert));
   };
 
   return (
@@ -19,7 +32,6 @@ export function FormGiftCard() {
             Nombre
           </label>
           <input
-            //{...register("nombre")}
             onChange={Submit}
             id="nombre"
             name="nombre"
@@ -35,7 +47,7 @@ export function FormGiftCard() {
             Telefono
           </label>
           <input
-            //{...register("telefono")}
+            onChange={Submit}
             id="telefono"
             name="telefono"
             type="text"
@@ -51,7 +63,7 @@ export function FormGiftCard() {
             Correo
           </label>
           <input
-            //{...register("correo")}
+            onChange={Submit}
             id="correo"
             name="correo"
             type="text"
@@ -68,18 +80,33 @@ export function FormGiftCard() {
 }
 
 export function ValueGiftCard() {
+  const Submit = () => {
+    const all = document.querySelectorAll("input");
+    const _dataInsert: ISendGiftCard = JSON.parse(
+      sessionStorage.getItem("DatosPersonales") || "{}"
+    );
+
+    dataInsert.nombre = _dataInsert.nombre;
+    dataInsert.telefono = _dataInsert.telefono;
+    dataInsert.correo = _dataInsert.correo;
+    dataInsert.monto = all[0].value;
+
+    sessionStorage.setItem("DatosPersonales", JSON.stringify(dataInsert));
+  };
+
   return (
     <form className="mt-8 space-y-6">
       <div className="-space-y-px rounded-md shadow-sm">
         <div>
-          <label htmlFor="user" className="sr-only">
+          <label htmlFor="valor" className="sr-only">
             Valor
           </label>
           <input
-            id="user"
-            name="user"
-            type="text"
-            autoComplete="user"
+            onChange={Submit}
+            id="valor"
+            name="valor"
+            type="number"
+            autoComplete="valor"
             required
             className="relative block w-full appearance-none rounded-none rounded-t-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
             placeholder="Valor de Gift Card"
@@ -91,10 +118,25 @@ export function ValueGiftCard() {
 }
 
 export function TokenGiftCard() {
+  const token = GenerarToken();
+
+  const copy = () => {
+    navigator.clipboard.writeText(token.toUpperCase());
+    Swal.fire("Token copiado en el portapapeles");
+  };
+
   return (
-    <p className="w-full rounded-none rounded-t-md border bg-white border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm">
-      Token de la gift card
-    </p>
+    <div
+      className="rounded-md border bg-white border-gray-300"
+      onClick={() => copy()}
+    >
+      <div className="m-4">
+        <h4>Click para copiar</h4>
+        <p className="w-full rounded-md border bg-slate-300 border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm font-semibold">
+          {token.toUpperCase()}
+        </p>
+      </div>
+    </div>
   );
 }
 
@@ -120,6 +162,7 @@ export function TableGiftCard() {
           placeholder="Ingrese token de identificacion"
           type="text"
           id="token"
+          required
           {...register("token")}
           name="token"
         />
