@@ -28,16 +28,18 @@ function GenerarToken() {
     sessionStorage.getItem("DatosPersonales") || "{}"
   );
   const { cdo }: ISession = JSON.parse(sessionStorage.getItem("auth") || "{}");
+  const CdO = cdo.split("");
 
-  const token = generate_token();
+  const token =
+    CdO[0] === "1" ? "S" + generate_token() : "O" + generate_token();
   var fecha = Date();
 
   dataInsert.nombre = data.nombre;
   dataInsert.telefono = data.telefono;
   dataInsert.correo = data.correo;
   dataInsert.monto = data.monto;
-  dataInsert.referencia = "S" + token;
-  dataInsert.fecha = fecha.toString().slice(0,24);
+  dataInsert.referencia = token;
+  dataInsert.fecha = fecha.toString().slice(0, 24);
   dataInsert.co = cdo;
   sessionStorage.setItem("DatosPersonales", JSON.stringify(dataInsert));
   return token;

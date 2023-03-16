@@ -2,9 +2,9 @@ import { useState } from "react";
 import { TiTick } from "react-icons/ti";
 import Swal from "sweetalert2";
 import { ISendEmail } from "../models/email";
-import { ISendGiftCard } from "../models/giftCard";
+import { IDatosPersonales, ISendGiftCard } from "../models/giftCard";
 import { sendEmail } from "../services/email";
-import { InsertGiftCard } from "../services/giftCard";
+import { ConsultGiftCard, InsertGiftCard } from "../services/giftCard";
 import { FormGiftCard, ValueGiftCard, TokenGiftCard } from "./giftCard";
 import "./style.css";
 
@@ -50,6 +50,20 @@ const Stepper = () => {
     insert ? Email(data) : Swal.fire("Tarjeta de regalo falló");
   };
 
+  const verificarDocPos = async () => {
+    const { referencia }: IDatosPersonales = JSON.parse(
+      sessionStorage.getItem("DatosPersonales") || "{}"
+    );
+    ConsultGiftCard(JSON.stringify({ token: referencia }))
+      .then((res) => {
+        if (res.idCliente) Swal.fire("Documento en Siesa");
+      })
+      .catch((e) => {
+        Swal.fire("Entro al catch");
+
+      });
+  };
+
   return (
     <div className="bg-slate-300 p-5 rounded-lg text-center w-full h-full">
       <div className="flex justify-between">
@@ -75,6 +89,7 @@ const Stepper = () => {
           className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
           onClick={() => {
             if (currentStep <= 2) cambioComponent();
+            if (currentStep === 3) verificarDocPos();
             if (currentStep === 4) sendGiftCard();
             currentStep - 1 === steps.length
               ? setComplete(true)

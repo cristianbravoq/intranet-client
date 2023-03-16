@@ -5,4 +5,3 @@ const PrivateRoute = ({ isLogged } : { isLogged: boolean}) => {
 };
 
 export default PrivateRoute;
- 

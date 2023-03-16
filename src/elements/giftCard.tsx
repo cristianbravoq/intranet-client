@@ -2,8 +2,12 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import Swal from "sweetalert2";
 import { ISendGiftCard } from "../models/giftCard";
-import { GetGiftCard } from "../services/giftCard";
+import { ConsultGiftCard, GetGiftCard } from "../services/giftCard";
 import GenerarToken from "../services/tokenGiftCard";
+import { Fragment } from 'react'
+import { Listbox, Transition } from '@headlessui/react'
+import { CheckIcon, ChevronUpDownIcon } from '@heroicons/react/20/solid'
+
 
 const dataInsert = {
   nombre: "",
@@ -79,6 +83,15 @@ export function FormGiftCard() {
   );
 }
 
+const people = [
+  { name: 'Wade Cooper' },
+  { name: 'Arlene Mccoy' },
+  { name: 'Devon Webb' },
+  { name: 'Tom Cook' },
+  { name: 'Tanya Fox' },
+  { name: 'Hellen Schmidt' },
+]
+
 export function ValueGiftCard() {
   const Submit = () => {
     const all = document.querySelectorAll("input");
@@ -145,13 +158,31 @@ export function TableGiftCard() {
     valorIngreso: string;
     valorEgreso: string;
     idGiftCard: string;
+    fecha: string;
+  }
+  interface consultaGiftCard {
+    valorDisponible: string;
+    idCliente: string;
   }
 
   const { register, handleSubmit } = useForm();
-  const [_data, setData] = useState<Array<dataGiftCard>>();
+  const [_data, setData] = useState<consultaGiftCard>();
+  const [detalles, setDetalles] = useState<Array<dataGiftCard>>();
+  const [token, setToken] = useState("");
+
+  const consultaDetalles = async () => {
+    GetGiftCard(
+      JSON.stringify({
+        token,
+      })
+    ).then((res) => setDetalles(res));
+    console.log(detalles);
+  };
 
   const onSubmit = async (res: any) => {
-    GetGiftCard(JSON.stringify(res)).then((res) => setData(res));
+    setToken(res.token);
+    setDetalles(undefined)
+    ConsultGiftCard(JSON.stringify(res)).then((res) => setData(res)).catch(e => setData(undefined));
   };
 
   return (
@@ -176,21 +207,51 @@ export function TableGiftCard() {
       <table className="w-full">
         <thead className="text-center border-b border-slate-500">
           <tr>
-            <th className="w-1/3">Valor Egreso</th>
-            <th className="w-1/4">Valor Ingreso</th>
-            <th className="w-1/3">Token</th>
+            <th className="w-1/3">Disponible</th>
+            <th className="w-1/4">Cliente</th>
+            <th className="w-1/3"></th>
           </tr>
         </thead>
         <tbody>
-          {_data?.map((res: dataGiftCard, i: any) => (
-            <tr key={i} className="divide-x divide-slate-500 text-center">
-              <td>{res.valorEgreso}</td>
-              <td>{res.valorIngreso}</td>
-              <td>{res.idGiftCard.toUpperCase()}</td>
+          {_data ? (
+            <tr className="divide-x divide-slate-500 text-center">
+              <td>{_data?.valorDisponible}</td>
+              <td>{_data?.idCliente}</td>
+              <td>
+                <button
+                  onClick={consultaDetalles}
+                  className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
+                >
+                  Detalles
+                </button>
+              </td>
             </tr>
-          ))}
+          ) : null}
         </tbody>
       </table>
+      {detalles
+        ? 
+            <>
+              <div
+                className="flex mt-3 rounded-sm text-center bg-black text-white"
+              >
+                <p className="w-1/3">Valor Egreso</p>
+                <p className="w-1/3">Valor Ingreso</p>
+                <p className="w-1/3">Fecha</p>
+              </div>
+            
+          {detalles?.map((res: dataGiftCard, i: any) => (
+            <div
+            key={i}
+            className="flex mt-3 rounded-sm divide-slate-500 text-center bg-slate-800 text-white"
+          >
+            <p className="w-1/3">{res.valorEgreso}</p>
+            <p className="w-1/3">{res.valorIngreso}</p>
+            <p className="w-1/3">{res.fecha}</p>
+          </div>
+          ))}
+          </>
+        : null}
     </div>
   );
 }
