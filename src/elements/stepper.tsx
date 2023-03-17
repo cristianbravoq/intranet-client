@@ -59,8 +59,8 @@ const Stepper = () => {
         if (res.idCliente) Swal.fire("Documento en Siesa");
       })
       .catch((e) => {
-        Swal.fire("Entro al catch");
-
+        setCurrentStep((prev) => prev - 1)
+        Swal.fire("Documento no creado en Siesa");
       });
   };
 

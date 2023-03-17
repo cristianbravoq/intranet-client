@@ -28,12 +28,20 @@ export function AuthForm() {
   const onSubmit = async (res: auth) => {
     try {
       const _login = await loginServices(res);
+      console.log(_login);
       setAuthLogin(_login);
       sessionStorage.setItem(
         "auth",
-        JSON.stringify({ user: _login.token, login: true, cdo: _login.cdo })
+        JSON.stringify({
+          user: _login.token,
+          login: true,
+          cdo: _login.cdo,
+          rol: _login.rol,
+        })
       );
-      _login.cdo === res.Cdo ? redirectDashboard() : Swal.fire("Cdo incorrecto");
+      _login.cdo === res.Cdo
+        ? redirectDashboard()
+        : Swal.fire("Cdo incorrecto");
     } catch (error) {
       Swal.fire("Verifique las credenciales de ingreso");
     }
