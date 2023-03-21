@@ -8,6 +8,7 @@ import PrivateRoute from "./routes/private-route";
 import GiftCard from "./components/dashboard/giftCard";
 import { ISession } from "./models/auth";
 import NoFound from "./elements/noFound";
+import Home from "./components/dashboard/home";
 
 function App() {
   const navigate = useNavigate();
@@ -22,7 +23,7 @@ function App() {
       <Route index element={<Auth />} />
       <Route element={<PrivateRoute isLogged={login} />}>
         <Route path="/home" element={<Dashboard />}>
-          <Route index element={<NoFound/>} />
+          <Route index element={<Home/>} />
           <Route path="capacitaciones" element={<NoFound/>} />
           <Route path="comercial" element={<NoFound/>} />
           <Route path="rappi" element={<NoFound/>} />
@@ -30,9 +31,9 @@ function App() {
           <Route path="sistemas" element={<NoFound />} />
         </Route>
       </Route>
-      <Route path="*" element={<p>No Found</p>} />
+      <Route path="*" element={<NoFound />} />
     </Routes>
   );
 }
 
-export default App; 
+export default App;

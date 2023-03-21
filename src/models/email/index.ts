@@ -1,5 +1,8 @@
 export interface ISendEmail {
-    To: string;
-    Subject: string;
-    Body: string
+    stTo: string,
+    stAsunto: string,
+    stDestinatario: string,
+    stRemitente: string,
+    stValor: string,
+    stReferencia: string
 }

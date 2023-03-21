@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import "./style.css";
 
 function NoFound() {
@@ -16,9 +17,9 @@ function NoFound() {
 
                 <p>¡La página que estás buscando no está disponible!</p>
 
-                <button className="link_404">
+                <Link className="link_404" to="/home">
                   Go to Home
-                </button>
+                </Link>
               </div>
             </div>
           </div>

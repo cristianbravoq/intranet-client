@@ -24,6 +24,8 @@ export default function GiftCard() {
     ]
   }
 
+  
+
   return (
     <div className="w-full px-2 py-16 sm:px-0">
       <h2 className='text-center text-4xl mb-7 absolute top-6'>Gift Card</h2>

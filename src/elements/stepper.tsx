@@ -26,14 +26,19 @@ const Stepper = () => {
   const Email = async (data: ISendGiftCard) => {
     try {
       const params: ISendEmail = {
-        To: "",
-        Subject: "",
-        Body: "",
+        stTo: "",
+        stAsunto: "",
+        stDestinatario: "",
+        stRemitente: "",
+        stValor: "",
+        stReferencia: "",
       };
-      const body = "Tarjeta de regalo por valor de XXXXX y referencia XXXX";
-      params.To = data.correo;
-      params.Body = body;
-      params.Subject = "Asunto de correo";
+      params.stTo = data.correo;
+      params.stAsunto = "Gift Card";
+      params.stDestinatario = "Persona Destino";
+      params.stRemitente = data.nombre;
+      params.stValor = data.monto;
+      params.stReferencia = data.referencia;
       sendEmail(JSON.stringify(params));
       Swal.fire("Tarjeta de regalo creada y enviada exitosamente");
     } catch (error) {
@@ -59,7 +64,7 @@ const Stepper = () => {
         if (res.idCliente) Swal.fire("Documento en Siesa");
       })
       .catch((e) => {
-        setCurrentStep((prev) => prev - 1)
+        setCurrentStep((prev) => prev - 1);
         Swal.fire("Documento no creado en Siesa");
       });
   };

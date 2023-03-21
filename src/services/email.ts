@@ -5,7 +5,7 @@ export async function sendEmail(info : string){
         const result = await request({
           method: "post",
           maxBodyLength: Infinity,
-          url: "http://localhost:5209/api/Email/Submit",
+          url: "http://localhost:5209/api/Email/SubmitHTML",
           headers: {
             "Content-Type": "application/json",
           },
