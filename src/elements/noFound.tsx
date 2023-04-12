@@ -3,7 +3,7 @@ import "./style.css";
 
 function NoFound() {
   return (
-    <section className="page_404 w-4/5">
+    <div className="page_404 w-4/5">
       <div className="container">
         <div className="row">
           <div className="col-sm-12 ">
@@ -25,7 +25,7 @@ function NoFound() {
           </div>
         </div>
       </div>
-    </section>
+    </div>
   );
 }
 

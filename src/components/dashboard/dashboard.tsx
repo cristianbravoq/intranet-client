@@ -16,7 +16,7 @@ function Dashboard() {
           stateOpenSidebar ? "sm:ml-20 w-full" : "w-full ml-72"
         } h-full duration-500 flex flex-col items-center`}
       >
-        <div className="w-11/12 h-full items-center justify-center flex">
+        <div className="w-11/12 flex overflow-hidden">
           <Outlet/>
         </div>
       </div>

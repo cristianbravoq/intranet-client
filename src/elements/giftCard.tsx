@@ -4,10 +4,9 @@ import Swal from "sweetalert2";
 import { ISendGiftCard } from "../models/giftCard";
 import { ConsultGiftCard, GetGiftCard } from "../services/giftCard";
 import GenerarToken from "../services/tokenGiftCard";
-import { Fragment } from 'react'
-import { Listbox, Transition } from '@headlessui/react'
-import { CheckIcon, ChevronUpDownIcon } from '@heroicons/react/20/solid'
-
+import { Fragment } from "react";
+import { Listbox, Transition } from "@headlessui/react";
+import { CheckIcon, ChevronUpDownIcon } from "@heroicons/react/20/solid";
 
 const dataInsert = {
   nombre: "",
@@ -84,13 +83,13 @@ export function FormGiftCard() {
 }
 
 const people = [
-  { name: 'Wade Cooper' },
-  { name: 'Arlene Mccoy' },
-  { name: 'Devon Webb' },
-  { name: 'Tom Cook' },
-  { name: 'Tanya Fox' },
-  { name: 'Hellen Schmidt' },
-]
+  { name: "Wade Cooper" },
+  { name: "Arlene Mccoy" },
+  { name: "Devon Webb" },
+  { name: "Tom Cook" },
+  { name: "Tanya Fox" },
+  { name: "Hellen Schmidt" },
+];
 
 export function ValueGiftCard() {
   const Submit = () => {
@@ -181,8 +180,17 @@ export function TableGiftCard() {
 
   const onSubmit = async (res: any) => {
     setToken(res.token);
-    setDetalles(undefined)
-    ConsultGiftCard(JSON.stringify(res)).then((res) => setData(res)).catch(e => setData(undefined));
+    setDetalles(undefined);
+    ConsultGiftCard(JSON.stringify(res))
+      .then((res) => {
+        setData(res);
+        if (res.code == "ERR_BAD_REQUEST") {
+          Swal.fire("No se encuentra esta referencia");
+        }
+      })
+      .catch((e) => {
+        setData(undefined);
+      });
   };
 
   return (
@@ -229,29 +237,26 @@ export function TableGiftCard() {
           ) : null}
         </tbody>
       </table>
-      {detalles
-        ? 
-            <>
-              <div
-                className="flex mt-3 rounded-sm text-center bg-black text-white"
-              >
-                <p className="w-1/3">Valor Egreso</p>
-                <p className="w-1/3">Valor Ingreso</p>
-                <p className="w-1/3">Fecha</p>
-              </div>
-            
+      {detalles ? (
+        <>
+          <div className="flex mt-3 rounded-sm text-center bg-black text-white">
+            <p className="w-1/3">Valor Egreso</p>
+            <p className="w-1/3">Valor Ingreso</p>
+            <p className="w-1/3">Fecha</p>
+          </div>
+
           {detalles?.map((res: dataGiftCard, i: any) => (
             <div
-            key={i}
-            className="flex mt-3 rounded-sm divide-slate-500 text-center bg-slate-800 text-white"
-          >
-            <p className="w-1/3">{res.valorEgreso}</p>
-            <p className="w-1/3">{res.valorIngreso}</p>
-            <p className="w-1/3">{res.fecha}</p>
-          </div>
+              key={i}
+              className="flex mt-3 rounded-sm divide-slate-500 text-center bg-slate-800 text-white"
+            >
+              <p className="w-1/3">{res.valorEgreso}</p>
+              <p className="w-1/3">{res.valorIngreso}</p>
+              <p className="w-1/3">{res.fecha}</p>
+            </div>
           ))}
-          </>
-        : null}
+        </>
+      ) : null}
     </div>
   );
 }

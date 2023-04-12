@@ -48,6 +48,6 @@ export const ConsultGiftCard = async (idDoc: string) => {
     });
     return result?.data;
   } catch (e) {
-    throw e;
+    return e;
   }
 };
