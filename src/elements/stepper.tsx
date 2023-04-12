@@ -59,11 +59,16 @@ const Stepper = () => {
     const { referencia }: IDatosPersonales = JSON.parse(
       sessionStorage.getItem("DatosPersonales") || "{}"
     );
-    ConsultGiftCard(JSON.stringify({ token: referencia }))
+    var res = ConsultGiftCard(JSON.stringify({ token: referencia }))
       .then((res) => {
         if (res.idCliente) Swal.fire("Documento en Siesa");
+        if (res.msg === 'No existe esta referencia') {
+          setCurrentStep((prev) => prev - 1);
+          Swal.fire("Documento no creado en Siesa");
+        }
       })
       .catch((e) => {
+        console.log(res);
         setCurrentStep((prev) => prev - 1);
         Swal.fire("Documento no creado en Siesa");
       });
@@ -93,6 +98,7 @@ const Stepper = () => {
         <button
           className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
           onClick={() => {
+            console.log(currentStep);
             if (currentStep <= 2) cambioComponent();
             if (currentStep === 3) verificarDocPos();
             if (currentStep === 4) sendGiftCard();

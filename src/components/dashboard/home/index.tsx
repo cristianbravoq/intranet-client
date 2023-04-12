@@ -9,18 +9,16 @@ function Home() {
         <section className="layout text-center items-center h-screen">
           <div className="header flex justify-center h-full items-center">
             <div className="">
-              Recursos Humanos Creaciones Nadar.
+              Gestion Humana - Creaciones Nadar.
             </div>
           </div>
-          <div className="leftSide flex flex-col gap-3 justify-around w-full h-full items-center">
-            <button className="hover:bg-red-400 px-2 rounded-md bg-slate-500">Mision</button>
-            <button className="hover:bg-red-400 px-2 rounded-md bg-slate-500">Vision</button>
-            <button className="hover:bg-red-400 px-2 rounded-md bg-slate-500">Vacantes</button>
-            <button className="hover:bg-red-400 px-2 rounded-md bg-slate-500">Seguridad</button>
-            <button className="hover:bg-red-400 px-2 rounded-md bg-slate-500">Recreacion</button>
-            <button className="hover:bg-red-400 px-2 rounded-md bg-slate-500">Fechas</button>
+          <div className="leftSide flex flex-row justify-around w-full items-center">
+            <button className="hover:bg-red-300 focus:bg-red-400 px-4 py-2 rounded-md bg-slate-500">Informacion</button>
+            <button className="hover:bg-red-400 focus:bg-red-400 px-4 py-2 rounded-md bg-slate-500">Empleos</button>
+            <button className="hover:bg-red-400 focus:bg-red-400 px-4 py-2 rounded-md bg-slate-500">Recreacion</button>
+            <button className="hover:bg-red-400 focus:bg-red-400 px-4 py-2 rounded-md bg-slate-500">Fechas</button>
           </div>
-          <div className="body justify-center mr-5">
+          <div className="body justify-center mx-5">
             <Calendario />
           </div>
           <div className="footer flex justify-center h-full items-center">
@@ -58,7 +56,7 @@ function Home() {
 const DUMY_DATA = [
   {
     id: 1,
-    username: "Empleado 1",
+    username: "Johan",
     userImg: "https://links.papareact.com/3ke",
     imgPost:
       "https://resetmarketingdigital.com/wp-content/uploads/2019/10/Areas-de-recursos-humanos-innovadoras.jpg",
@@ -73,7 +71,7 @@ const DUMY_DATA = [
     caption: "Informacion para vacante de puesto xxxxx",
   },
   {
-    id: 1,
+    id: 3,
     username: "Empleado 1",
     userImg: "https://links.papareact.com/3ke",
     imgPost:
@@ -81,7 +79,7 @@ const DUMY_DATA = [
     caption: "Informacion general de recursos humanos prueba 1",
   },
   {
-    id: 2,
+    id: 4,
     username: "Empleado 2",
     userImg: "https://links.papareact.com/3ke",
     imgPost:
@@ -89,7 +87,7 @@ const DUMY_DATA = [
     caption: "Informacion para vacante de puesto xxxxx",
   },
   {
-    id: 1,
+    id: 5,
     username: "Empleado 1",
     userImg: "https://links.papareact.com/3ke",
     imgPost:
@@ -97,7 +95,7 @@ const DUMY_DATA = [
     caption: "Informacion general de recursos humanos prueba 1",
   },
   {
-    id: 2,
+    id: 6,
     username: "Empleado 2",
     userImg: "https://links.papareact.com/3ke",
     imgPost:
@@ -105,7 +103,7 @@ const DUMY_DATA = [
     caption: "Informacion para vacante de puesto xxxxx",
   },
   {
-    id: 1,
+    id: 7,
     username: "Empleado 1",
     userImg: "https://links.papareact.com/3ke",
     imgPost:
@@ -113,7 +111,7 @@ const DUMY_DATA = [
     caption: "Informacion general de recursos humanos prueba 1",
   },
   {
-    id: 2,
+    id: 8,
     username: "Empleado 2",
     userImg: "https://links.papareact.com/3ke",
     imgPost:

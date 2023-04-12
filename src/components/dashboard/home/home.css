@@ -2,7 +2,8 @@
   display: grid;
   grid:
     "header header header" 1fr
-    "leftSide leftSide body" 4fr
+    "leftSide leftSide leftSide" .2fr
+    "body body body" 4fr
     "footer footer footer" 1fr
     / .4fr 1fr 6fr;
   gap: 8px;

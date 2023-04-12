@@ -8,7 +8,7 @@ export function Calendario() {
   return (
     <div className="flex flex-col">
       <Calendar
-        className="my-5 rounded-md font-bold !w-full text-black"
+        className="my-5 rounded-md font-bold !w-full text-black active:text-red-600"
         onClickDay={(date) => onChange(date)}
         value={value}
       />
