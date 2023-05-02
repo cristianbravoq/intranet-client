@@ -24,9 +24,9 @@ export default function GiftCard() {
   };
 
   return (
-    <div className="z-0 px-2 py-16 sm:px-0 w-4/5">
+    <div className="px-2 py-16 sm:px-0 w-full">
       <h2 className="text-center text-4xl top-6">Gift Card</h2>
-      <div className="mt-5">
+      <div className="m-5 ">
         <Tab.Group>
           <Tab.List className="flex rounded-xl bg-blue-900/20 p-1">
             {Object.keys(categories).map((category) => (

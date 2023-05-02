@@ -3,7 +3,7 @@ import "./style.css";
 
 function NoFound() {
   return (
-    <div className="page_404 w-4/5 h-full">
+    <div className="page_404 w-4/5 h-screen">
       <div className="col-sm-10 flex flex-col text-center h-full justify-between">
         <div className="four_zero_four_bg">
           <h1 className="text-center ">404</h1>

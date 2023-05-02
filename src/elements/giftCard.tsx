@@ -176,6 +176,7 @@ export function TableGiftCard() {
       })
     ).then((res) => setDetalles(res));
     console.log(detalles);
+    if (detalles == undefined) Swal.fire("No se encuentra esta referencia");
   };
 
   const onSubmit = async (res: any) => {
@@ -184,7 +185,8 @@ export function TableGiftCard() {
     ConsultGiftCard(JSON.stringify(res))
       .then((res) => {
         setData(res);
-        if (res.code == "ERR_BAD_REQUEST") {
+        console.log(res);
+        if (res.code == "ERR_BAD_REQUEST" || res.msg == 'No existe esta referencia') {
           Swal.fire("No se encuentra esta referencia");
         }
       })
@@ -198,7 +200,7 @@ export function TableGiftCard() {
       <form className="w-full mb-4 flex" onSubmit={handleSubmit(onSubmit)}>
         <input
           className="w-full placeholder:text-slate-500 bg-slate-300 rounded-l-lg p-2 text-slate-900 border-2 border-y-slate-400 border-l-slate-400"
-          placeholder="Ingrese token de identificacion"
+          placeholder="Ingrese referencia"
           type="text"
           id="token"
           required

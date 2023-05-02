@@ -9,6 +9,7 @@ import GiftCard from "./components/dashboard/giftCard";
 import { ISession } from "./models/auth";
 import NoFound from "./elements/noFound";
 import Home from "./components/dashboard/home";
+import Informacion from "./components/dashboard/gestionHumana/Informacion";
 
 function App() {
   const navigate = useNavigate();
@@ -24,6 +25,7 @@ function App() {
       <Route element={<PrivateRoute isLogged={login} />}>
         <Route path="/home" element={<Dashboard />}>
           <Route index element={<Home/>} />
+          <Route path="informacion" element={<Informacion/>} />
           <Route path="capacitaciones" element={<NoFound/>} />
           <Route path="comercial" element={<NoFound/>} />
           <Route path="rappi" element={<NoFound/>} />

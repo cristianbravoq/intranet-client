@@ -8,6 +8,7 @@ export function Calendario() {
   return (
     <div className="flex flex-col">
       <Calendar
+        calendarType="US"
         className="my-5 rounded-md font-bold !w-full text-black"
         onClickDay={(date) => onChange(date)}
         value={value}
@@ -16,3 +17,4 @@ export function Calendario() {
     </div>
   );
 }
+

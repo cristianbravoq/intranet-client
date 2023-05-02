@@ -18,7 +18,7 @@ interface PostItemProps {
 export default function PostItem(props: PostItemProps) {
   const { username, userImg, imgPost, caption } = props;
   return (
-    <div className="  bg-neutral-300 shadow-sm border border-gray-200 rounded-md my-2">
+    <div className="bg-neutral-300 shadow-sm border border-gray-200 rounded-md my-2">
       
       {/* Profile */}
       <div className="flex justify-between items-center space-x-2 p-4">

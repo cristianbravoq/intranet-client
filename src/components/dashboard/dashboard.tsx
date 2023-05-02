@@ -9,14 +9,14 @@ function Dashboard() {
   );
   
   return (
-    <div className="w-full h-screen flex">
+    <div className="w-full h-screen flex overflow-hidden">
       <SideBar />
       <div
-        className={` ${
+        className={`${
           stateOpenSidebar ? "sm:ml-20 w-full" : "w-full ml-72"
         } h-full duration-500 flex flex-col items-center`}
       >
-        <div className="border border-l-2 flex overflow-hidden w-full h-full justify-center">
+        <div className={`${!stateOpenSidebar && "max-md:hidden"} flex overflow-hidden justify-center w-full`}>
           <Outlet/>
         </div>
       </div>

@@ -12,7 +12,7 @@ const Stepper = () => {
   const [content, setContent] = useState(FormGiftCard);
 
   const steps = [
-    { title: "Información", component: FormGiftCard },
+    { title: "Datos", component: FormGiftCard },
     { title: "Precio", component: ValueGiftCard },
     { title: "Token", component: TokenGiftCard },
   ];

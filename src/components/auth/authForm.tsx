@@ -11,6 +11,7 @@ import { useState } from "react";
 export function AuthForm() {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+  
   const { register, handleSubmit } = useForm<auth>();
   const [authLogin, setAuthLogin] = useState<authLogin>({
     name: "",

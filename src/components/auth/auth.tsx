@@ -11,7 +11,7 @@ function Auth() {
   dispatch(sidebarSlice.actions.openSlice(false));
   return (
     <div className="w-full h-screen contenedor-auth flex flex-col items-center justify-center">
-      <div className="flex items-center w-2/3 justify-center py-12 px-4 sm:px-6 lg:px-8">
+      <div className="flex items-center w-11/12 justify-center py-12 px-4 sm:px-6 lg:px-8">
         <div className="w-full max-w-md space-y-8 backdrop-blur-sm bg-slate-200 border-2 border-x-red-600 rounded-lg p-5">
           <div>
             <img

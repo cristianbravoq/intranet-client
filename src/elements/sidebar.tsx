@@ -54,11 +54,13 @@ function SideBar() {
   return (
     <div
       className={` ${
-        open ? "sm:w-72 w-full" : "sm:w-20 w-12"
-      } bg-gray-800 h-full p-5 pt-8 fixed z-50 duration-500 flex flex-col justify-between`}
+        open ? "md:w-72 w-screen" : "md:w-20 max-sm:bg-transparent w-0"
+      } bg-gray-800 h-screen p-5 pt-8 absolute duration-500 flex flex-col justify-between`}
     >
       <div
-        className={`absolute flex cursor-pointer -right-5 top-6 w-7 rounded-full p-5 bg-green-600 justify-center items-center hover:scale-105`}
+        className={`duration-75 flex md:absolute max-md:fixed cursor-pointer -right-5 top-6 w-7 rounded-full p-5 bg-green-600 justify-center items-center hover:scale-105 ${
+          !open && "max-md:right-5 max-md:absolute"
+        }`}
         onClick={() => stateOpenSidebar()}
       >
         <ArrowLongRightIcon
@@ -70,7 +72,7 @@ function SideBar() {
       </div>
       <div className="flex gap-x-4 items-center justify-center">
         <div
-          className={`text-white origin-left font-medium text-xl duration-500 ${
+          className={`text-white origin-left font-medium text-xl duration-75 ${
             !open && ""
           }`}
         >
@@ -79,7 +81,7 @@ function SideBar() {
               <Link to="/home" className="h-20 flex items-center">
                 <img
                   className={`w-9 items-center hover:scale-125 ${
-                    !open && "duration-300"
+                    !open && "duration-75"
                   }`}
                   alt="Your Company"
                   src={home}
@@ -102,11 +104,11 @@ function SideBar() {
           )}
         </div>
       </div>
-      <ul className="py-6">
+      <ul className={`py-2 ${!open && "max-md:hidden"}`}>
         {Menus.map((Menu, index) => (
           <li
             key={index}
-            className={`flex rounded-md p-1 cursor-pointer hover:scale-110 text-gray-300 hover:text-gray-800 text-sm items-center gap-x-4 
+            className={`flex rounded-md p-1 cursor-pointer hover:scale-90 text-gray-300 hover:text-gray-800 text-sm items-center gap-x-4 
                   ${Menu.gap ? " mt-28" : "mt-2"} ${
               index === 0 && "bg-light-white"
             } `}
