@@ -5,7 +5,7 @@ export const GetGiftCard = async (idDoc: string) => {
     const result = await request({
       method: "post",
       maxBodyLength: Infinity,
-      url: "http://localhost:5209/api/MvtoAnticipado/GiftCards",
+      url: `${process.env.REACT_APP_API_INTRANET}/api/MvtoAnticipado/GiftCards`,
       headers: {
         "Content-Type": "application/json",
       },
@@ -23,7 +23,7 @@ export const InsertGiftCard = async (idDoc: string) => {
     const result = await request({
       method: "post",
       maxBodyLength: Infinity,
-      url: "http://localhost:5209/api/MvtoAnticipado/InsertGiftCards",
+      url: `${process.env.REACT_APP_API_INTRANET}/api/MvtoAnticipado/InsertGiftCards`,
       headers: {
         "Content-Type": "application/json",
       },
@@ -40,7 +40,7 @@ export const ConsultGiftCard = async (idDoc: string) => {
     const result = await request({
       method: "post",
       maxBodyLength: Infinity,
-      url: "http://localhost:5209/api/MvtoAnticipado/ConsultaGiftCards",
+      url: `${process.env.REACT_APP_API_INTRANET}/api/MvtoAnticipado/ConsultaGiftCards`,
       headers: {
         "Content-Type": "application/json",
       },

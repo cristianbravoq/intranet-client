@@ -20,7 +20,17 @@ const Stepper = () => {
   const [complete, setComplete] = useState(false);
 
   const cambioComponent = () => {
+    let dataForm: ISendGiftCard | any =
+      sessionStorage.getItem("DatosPersonales");
+    dataForm = JSON.parse(dataForm);
+    if (!dataForm) {
+      alert("Debe llenar los campos");
+      return;
+    }
     setContent(steps[currentStep].component);
+    currentStep - 1 === steps.length
+              ? setComplete(true)
+              : setCurrentStep((prev) => prev + 1);
   };
 
   const Email = async (data: ISendGiftCard) => {
@@ -53,6 +63,8 @@ const Stepper = () => {
 
     const insert: boolean = await InsertGiftCard(JSON.stringify(data));
     insert ? Email(data) : Swal.fire("Tarjeta de regalo falló");
+
+    
   };
 
   const verificarDocPos = async () => {
@@ -61,16 +73,23 @@ const Stepper = () => {
     );
     var res = ConsultGiftCard(JSON.stringify({ token: referencia }))
       .then((res) => {
-        if (res.idCliente) Swal.fire("Documento en Siesa");
-        if (res.msg === 'No existe esta referencia') {
+        if (res.idCliente) {
+          Swal.fire("Documento en Siesa");
+          currentStep - 1 === steps.length
+              ? setComplete(true)
+              : setCurrentStep((prev) => prev + 1);
+        };
+        if (res.msg === "No existe esta referencia") {
           setCurrentStep((prev) => prev - 1);
           Swal.fire("Documento no creado en Siesa");
+          return;
         }
       })
       .catch((e) => {
         console.log(res);
         setCurrentStep((prev) => prev - 1);
         Swal.fire("Documento no creado en Siesa");
+        return;
       });
   };
 
@@ -102,9 +121,6 @@ const Stepper = () => {
             if (currentStep <= 2) cambioComponent();
             if (currentStep === 3) verificarDocPos();
             if (currentStep === 4) sendGiftCard();
-            currentStep - 1 === steps.length
-              ? setComplete(true)
-              : setCurrentStep((prev) => prev + 1);
           }}
         >
           {currentStep - 1 === steps.length ? "Finalizar" : "Siguiente"}
