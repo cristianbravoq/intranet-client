@@ -7,8 +7,10 @@ import { sendEmail } from "../services/email";
 import { ConsultGiftCard, InsertGiftCard } from "../services/giftCard";
 import { FormGiftCard, ValueGiftCard, TokenGiftCard } from "./giftCard";
 import "./style.css";
+import { useNavigate } from "react-router-dom";
 
 const Stepper = () => {
+  const navigate = useNavigate()
   const [content, setContent] = useState(FormGiftCard);
 
   const steps = [
@@ -20,12 +22,20 @@ const Stepper = () => {
   const [complete, setComplete] = useState(false);
 
   const cambioComponent = () => {
-    let dataForm: ISendGiftCard | any =
-      sessionStorage.getItem("DatosPersonales");
-    dataForm = JSON.parse(dataForm);
-    if (!dataForm) {
-      alert("Debe llenar los campos");
+    const dataForm = sessionStorage.getItem("DatosPersonales");
+    if(dataForm?.valueOf() === undefined) {
+      Swal.fire("Debe llenar los campos");
       return;
+    }
+    else {
+      var _dataForm =JSON.parse(dataForm);
+      console.log(_dataForm.nombre)
+      if (_dataForm.nombre === "" || _dataForm.telefono === "" || _dataForm.correo === "") {
+        Swal.fire("Debe llenar correctamente los campos");
+        return;
+      }else {
+
+      }
     }
     setContent(steps[currentStep].component);
     currentStep - 1 === steps.length
@@ -60,11 +70,11 @@ const Stepper = () => {
     const data: ISendGiftCard = JSON.parse(
       sessionStorage.getItem("DatosPersonales") || "{}"
     );
-
     const insert: boolean = await InsertGiftCard(JSON.stringify(data));
     insert ? Email(data) : Swal.fire("Tarjeta de regalo falló");
-
-    
+    if(insert) {
+      navigate("/home");
+    }
   };
 
   const verificarDocPos = async () => {
@@ -80,7 +90,6 @@ const Stepper = () => {
               : setCurrentStep((prev) => prev + 1);
         };
         if (res.msg === "No existe esta referencia") {
-          setCurrentStep((prev) => prev - 1);
           Swal.fire("Documento no creado en Siesa");
           return;
         }
@@ -88,7 +97,7 @@ const Stepper = () => {
       .catch((e) => {
         console.log(res);
         setCurrentStep((prev) => prev - 1);
-        Swal.fire("Documento no creado en Siesa");
+        Swal.fire("Documento no creado en Siesa, debes iniciar de nuevo el proceso");
         return;
       });
   };

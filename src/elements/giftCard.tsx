@@ -4,9 +4,6 @@ import Swal from "sweetalert2";
 import { ISendGiftCard } from "../models/giftCard";
 import { ConsultGiftCard, GetGiftCard } from "../services/giftCard";
 import GenerarToken from "../services/tokenGiftCard";
-import { Fragment } from "react";
-import { Listbox, Transition } from "@headlessui/react";
-import { CheckIcon, ChevronUpDownIcon } from "@heroicons/react/20/solid";
 
 const dataInsert = {
   nombre: "",
@@ -81,15 +78,6 @@ export function FormGiftCard() {
     </form>
   );
 }
-
-const people = [
-  { name: "Wade Cooper" },
-  { name: "Arlene Mccoy" },
-  { name: "Devon Webb" },
-  { name: "Tom Cook" },
-  { name: "Tanya Fox" },
-  { name: "Hellen Schmidt" },
-];
 
 export function ValueGiftCard() {
   const Submit = () => {
@@ -186,7 +174,10 @@ export function TableGiftCard() {
       .then((res) => {
         setData(res);
         console.log(res);
-        if (res.code == "ERR_BAD_REQUEST" || res.msg == 'No existe esta referencia') {
+        if (
+          res.code == "ERR_BAD_REQUEST" ||
+          res.msg == "No existe esta referencia"
+        ) {
           Swal.fire("No se encuentra esta referencia");
         }
       })
@@ -194,6 +185,11 @@ export function TableGiftCard() {
         setData(undefined);
       });
   };
+
+  function setSessionStorage() {
+    sessionStorage.removeItem("DatosPersonales");
+  }
+  setSessionStorage();
 
   return (
     <div className="bg-slate-300 p-5 rounded-lg text-center">
